@@ -1,0 +1,124 @@
+.characters-page {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top, #32472d, transparent 55%),
+    #101711;
+  color: #f5e9cb;
+  font-family: "Inter", sans-serif;
+}
+
+.characters-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 24px 7%;
+  border-bottom: 1px solid #75603b;
+  background: #171c17;
+}
+
+.characters-header h1 {
+  margin: 0;
+  color: #dfbf78;
+  font-family: "Cinzel", serif;
+}
+
+.characters-header p {
+  color: #aaa995;
+}
+
+.characters-header button {
+  padding: 10px 16px;
+  border: 1px solid #887344;
+  border-radius: 5px;
+  background: #29291d;
+  color: #f4e5bc;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.characters-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 25px;
+  text-align: center;
+}
+
+.characters-container h2 {
+  font-family: "Cinzel", serif;
+  font-size: 30px;
+  color: #e7c77e;
+}
+
+.characters-description {
+  color: #b4b6a6;
+  margin-bottom: 40px;
+}
+
+.characters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 25px;
+}
+
+.character-card {
+  min-height: 340px;
+  padding: 30px 20px;
+  border: 2px solid #947744;
+  border-radius: 10px;
+  background: linear-gradient(145deg, #332c22, #191d17);
+  box-shadow: 0 12px 35px #0006;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.character-avatar {
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #293323;
+  border: 2px solid #b99b5d;
+  border-radius: 50%;
+  color: #e7c77e;
+}
+
+.character-card h3 {
+  color: #e7c77e;
+  font-family: "Cinzel", serif;
+}
+
+.character-card p {
+  color: #c1bba8;
+}
+
+.character-card button {
+  margin-top: 20px;
+  padding: 12px 20px;
+  background: linear-gradient(#60773d, #374d27);
+  border: 1px solid #b4a46a;
+  border-radius: 5px;
+  color: #fff2cb;
+  cursor: pointer;
+}
+
+.character-card button:hover {
+  filter: brightness(1.15);
+}
+
+.create-card {
+  border-style: dashed;
+  color: #dfbf78;
+}
+
+@media (max-width: 600px) {
+  .characters-header {
+    flex-direction: column;
+    text-align: center;
+  }
+}

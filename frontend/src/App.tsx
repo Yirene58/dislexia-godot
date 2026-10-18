@@ -1,3 +1,4 @@
+﻿import Game from "./pages/Game";
 import {
   BrowserRouter,
   Routes,
@@ -26,6 +27,7 @@ function App() {
           <Route path="/register" element={<Register />} />
 
           <Route element={<ProtectedRoute />}>
+          <Route path="/game/:id" element={<Game />} />
             <Route
               path="/characters"
               element={<CharacterSelection />}
