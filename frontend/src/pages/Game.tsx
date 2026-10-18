@@ -62,6 +62,12 @@ export default function Game() {
       </header>
 
       <section className="characters-container">
+        <button
+          disabled={!character}
+          onClick={() => navigate(`/characters/${character?.id}/save`)}
+        >
+          Ver partida guardada
+        </button>
         {loading && <p>Cargando personaje...</p>}
 
         {error && <p role="alert">{error}</p>}
@@ -105,3 +111,4 @@ export default function Game() {
     </main>
   );
 }
+

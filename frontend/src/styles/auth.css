@@ -163,3 +163,32 @@ body {
     padding: 25px 20px;
   }
 }
+
+/* Ajustes visuales del formulario de registro */
+
+.auth-container h1,
+.auth-container h2,
+.auth-card h1,
+.auth-card h2 {
+  color: #e8c477;
+}
+
+.auth-container input,
+.auth-card input {
+  background-color: #121a14;
+  color: #f8f3e8;
+  border: 1px solid #827044;
+}
+
+.auth-container input:focus,
+.auth-card input:focus {
+  outline: none;
+  border-color: #e8c477;
+  box-shadow: 0 0 0 2px rgba(232, 196, 119, 0.18);
+}
+
+.auth-container input::placeholder,
+.auth-card input::placeholder {
+  color: #aaa394;
+}
+

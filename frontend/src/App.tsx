@@ -1,4 +1,6 @@
-﻿import Game from "./pages/Game";
+﻿import SaveGamePage from "./pages/SaveGamePage";
+import Profile from "./pages/Profile";
+import Game from "./pages/Game";
 import {
   BrowserRouter,
   Routes,
@@ -27,6 +29,8 @@ function App() {
           <Route path="/register" element={<Register />} />
 
           <Route element={<ProtectedRoute />}>
+          <Route path="/characters/:id/save" element={<SaveGamePage />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/game/:id" element={<Game />} />
             <Route
               path="/characters"
@@ -50,3 +54,5 @@ function App() {
 }
 
 export default App;
+
+

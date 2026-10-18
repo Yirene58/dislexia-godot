@@ -1,0 +1,108 @@
+﻿.save-container {
+  width: min(850px, 92%);
+  margin: 45px auto;
+  color: #f6e9ce;
+}
+
+.save-container h2 {
+  color: #e9c477;
+  margin-bottom: 25px;
+}
+
+.save-character,
+.save-card {
+  background: #29271f;
+  border: 1px solid #80663d;
+  border-radius: 14px;
+  padding: 25px;
+  margin-bottom: 20px;
+}
+
+.save-character {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.save-character svg,
+.save-info svg {
+  color: #e9c477;
+  flex-shrink: 0;
+}
+
+.save-character h3 {
+  color: #f2d28b;
+  margin: 0 0 8px;
+}
+
+.save-character p {
+  margin: 0;
+  color: #c8bba4;
+}
+
+.save-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 15px 0;
+  border-bottom: 1px solid #4e4534;
+}
+
+.save-info div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.save-info span {
+  color: #c8bba4;
+  font-size: 13px;
+}
+
+.save-info strong {
+  color: #f2d28b;
+  overflow-wrap: anywhere;
+}
+
+.save-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 22px;
+}
+
+.save-actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 18px;
+  border: 1px solid #bd9755;
+  border-radius: 9px;
+  background: #493b27;
+  color: #fff0cd;
+  cursor: pointer;
+}
+
+.save-actions button:hover:not(:disabled) {
+  background: #624d30;
+}
+
+.save-actions button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.save-error {
+  color: #ff9999;
+}
+
+.save-success {
+  color: #9ee5aa;
+}
+
+.save-note {
+  color: #a99d87;
+  font-size: 13px;
+  margin-top: 25px;
+}

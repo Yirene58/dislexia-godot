@@ -37,4 +37,10 @@ def create_app():
             "message": "Dislexia Godot API funcionando"
         }), 200
 
+    from app.routes.save_routes import save_bp
+    app.register_blueprint(save_bp)
+    from app.routes.game_routes import game_bp
+    app.register_blueprint(game_bp)
+
     return app
+
