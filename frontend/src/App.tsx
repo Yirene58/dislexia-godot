@@ -7,7 +7,7 @@ import {
 
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
-
+import CreateCharacter from "./pages/CreateCharacter";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import CharacterSelection from "./pages/CharacterSelection";
@@ -35,6 +35,11 @@ function App() {
           <Route
             path="*"
             element={<Navigate to="/login" replace />}
+          />
+
+          <Route
+            path="/characters/create"
+            element={<CreateCharacter />}
           />
         </Routes>
       </BrowserRouter>

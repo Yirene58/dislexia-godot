@@ -1,11 +1,16 @@
 ﻿import os
+from pathlib import Path
 from datetime import timedelta
+from dotenv import load_dotenv
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+load_dotenv(BASE_DIR / ".env")
 
 
 class Config:
-    SQLALCHEMY_DATABASE_URI = os.getenv(
-        "DATABASE_URL",
-        "postgresql://rpg_user:rpg_password@localhost:5432/dislexia_db"
+    SQLALCHEMY_DATABASE_URI = (
+        "sqlite:///" + (BASE_DIR / "dislexia.db").as_posix()
     )
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False

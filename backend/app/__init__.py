@@ -4,7 +4,7 @@ from flask_cors import CORS
 from app.config import Config
 from app.extensions import db, migrate, jwt
 from app.routes.auth_routes import auth_bp
-from app.models.user import User
+from app.routes.character_routes import character_bp
 
 
 def create_app():
@@ -25,13 +25,16 @@ def create_app():
     migrate.init_app(app, db)
     jwt.init_app(app)
 
-    app.register_blueprint(auth_bp)
+    from app import models
 
-    @app.route("/api/health", methods=["GET"])
+    app.register_blueprint(auth_bp)
+    app.register_blueprint(character_bp)
+
+    @app.get("/api/health")
     def health():
         return jsonify({
             "status": "ok",
-            "message": "API Dislexia Godot funcionando"
+            "message": "Dislexia Godot API funcionando"
         }), 200
 
     return app
