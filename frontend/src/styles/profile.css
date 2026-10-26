@@ -83,7 +83,6 @@
 
 .profile-hero {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   gap: 16px;
   padding: 18px;
@@ -94,6 +93,29 @@
   cursor: pointer;
   text-align: left;
 }
+
+.profile-character-art {
+  position: relative;
+  display: block;
+  width: 88px;
+  height: 88px;
+  flex: 0 0 auto;
+  overflow: visible;
+  border: 2px solid #bd9a66;
+  border-radius: 14px;
+}
+
+.profile-character-art img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+
+.profile-hero-info { display: flex; min-width: 0; flex: 1; flex-direction: column; gap: 5px; }
+.profile-hero-info strong { color: #f4dfb2; }
+.profile-hero-info > span { color: #c7bca9; font-size: .9rem; }
 
 .profile-hero:hover {
   border-color: #e6bd6b;

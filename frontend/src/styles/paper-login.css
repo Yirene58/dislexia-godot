@@ -1,0 +1,149 @@
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Quicksand:wght@500;600;700;800&display=swap");
+
+#root:has(.paper-login-page) { width: 100%; max-width: none; min-height: 100svh; border: 0; text-align: initial; }
+
+.paper-login-page {
+  --ink: #392618;
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  min-height: 100vh;
+  min-height: 100svh;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 0 clamp(16px, 2.4vw, 40px) 24px;
+  background: #58cafa;
+  color: var(--ink);
+  font-family: "Quicksand", sans-serif;
+}
+
+.paper-login-page * { box-sizing: border-box; }
+.paper-background-image { position: fixed; z-index: -1; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; pointer-events: none; }
+
+.paper-header { position: relative; z-index: 3; display: flex; height: clamp(160px, 19vh, 205px); flex: 0 0 auto; align-items: flex-start; justify-content: center; }
+.paper-nav { position: absolute; top: 22px; left: 0; display: flex; gap: 18px; }
+.paper-nav-link { display: inline-flex; min-width: 220px; min-height: 62px; align-items: center; justify-content: center; gap: 11px; padding: 11px 18px; border: 2px solid #b89571; border-radius: 35px; background: linear-gradient(#fffef9, #f6ecdc); box-shadow: 0 4px 0 #8f6b4c, 0 8px 16px #27484455, inset 0 3px 0 #fff; color: #382719; font: 700 1rem "Fredoka", sans-serif; text-decoration: none; transition: transform 150ms ease, box-shadow 150ms ease; }
+.paper-nav-link:hover { transform: translateY(-2px); box-shadow: 0 6px 0 #8f6b4c, 0 11px 17px #27484455, inset 0 3px 0 #fff; }
+.paper-nav-link:active { transform: translateY(2px); box-shadow: 0 2px 0 #8f6b4c; }
+.paper-nav-link svg { color: #68462a; stroke-width: 2.7; }
+.paper-logo { position: relative; display: flex; flex-direction: column; align-items: center; margin-top: 9px; color: #e76818; font: 700 clamp(3.3rem, 7.1vw, 7.2rem)/.77 "Fredoka", sans-serif; letter-spacing: -.045em; text-align: center; text-decoration: none; -webkit-text-stroke: 3px #fffdf7; paint-order: stroke fill; filter: drop-shadow(0 7px 0 #874b26) drop-shadow(0 12px 5px #28484955); }
+.logo-dislexia { z-index: 1; }
+.logo-godot { z-index: 1; color: #087dc9; }
+.logo-star { position: absolute; z-index: 2; color: #ffca38; font-size: .38em; font-style: normal; -webkit-text-stroke: 1px #fff; animation: star-glimmer 2.6s ease-in-out infinite; }
+.star-one { top: 27%; right: -38px; }
+.star-two { right: 9%; bottom: -12px; animation-delay: -1.3s; }
+.paper-header-spacer { display: none; }
+
+.login-stage { position: relative; z-index: 2; display: flex; width: min(100%, 1540px); flex: 1 0 auto; flex-direction: column; align-items: center; margin: 0 auto; }
+.login-masthead { display: flex; flex-direction: column; align-items: center; margin: 0 0 14px; }
+.wood-plaque { position: relative; min-width: min(560px, 80vw); margin: 0; padding: 11px 27px 13px; border: 4px solid #a86432; border-radius: 20px 14px 21px 15px; background: linear-gradient(180deg, #edbd7b, #d99b58); box-shadow: 0 5px 0 #91522f, 0 9px 12px #314a4850, inset 0 3px 0 #f8d79c; color: #643917; font: 700 clamp(1.05rem, 2.05vw, 1.8rem)/1.2 "Fredoka", sans-serif; text-align: center; transform: rotate(-.35deg); }
+.wood-plaque::before, .wood-plaque::after { position: absolute; top: 50%; width: 7px; height: 7px; border-radius: 50%; background: #8d552e; box-shadow: inset 1px 1px 1px #f2c78b; content: ""; transform: translateY(-50%); }
+.wood-plaque::before { left: 12px; }
+.wood-plaque::after { right: 12px; }
+.learning-motto { display: flex; align-items: center; gap: 14px; margin: 12px 0 0; padding: 5px 15px; border-radius: 20px; background: #fffdf0c9; box-shadow: 0 4px 12px #3c6a7040; font: 700 clamp(.75rem, 1.15vw, 1rem) "Fredoka", sans-serif; }
+.learning-motto span:nth-of-type(1) { color: #eb681d; }
+.learning-motto span:nth-of-type(2) { color: #0988d1; }
+.learning-motto span:nth-of-type(3) { color: #479f39; }
+.learning-motto span:nth-of-type(4) { color: #aa47c3; }
+.learning-motto b { color: #c78b3d; }
+
+.welcome-card { position: relative; width: min(100%, 620px); padding: 26px 36px 22px; border: 5px solid #d4a76c; border-radius: 42px 32px 38px 31px; background: linear-gradient(145deg, #fffdf5f7, #fff8e8f5); box-shadow: 0 9px 0 #9c663d, 0 17px 28px #2e494c55, inset 0 0 0 4px #fff; animation: parchment-appear 700ms cubic-bezier(.2,.75,.25,1) both; }
+.welcome-card::before, .welcome-card::after { position: absolute; z-index: 0; border: 4px solid #549c42; border-radius: 60% 35% 60% 40%; background: #75be49; box-shadow: 0 3px 5px #34582d55; content: ""; pointer-events: none; animation: vine-sway 4s ease-in-out infinite alternate; }
+.welcome-card::before { top: 7px; left: -12px; width: 24px; height: 34px; box-shadow: 8px 31px 0 -5px #78c34c, -2px 68px 0 -5px #71b944, 6px 112px 0 -5px #78c34c; }
+.welcome-card::after { right: -11px; bottom: 18px; width: 22px; height: 30px; box-shadow: -8px -40px 0 -5px #78c34c, 1px -82px 0 -5px #71b944; animation-delay: -1.7s; }
+.welcome-card > * { position: relative; z-index: 1; }
+.welcome-card h1 { margin: 0 0 2px; color: #22643f; font: 700 clamp(2.25rem, 4vw, 3.3rem)/1.05 "Fredoka", sans-serif; letter-spacing: -.025em; }
+.welcome-subtitle { margin: 0 0 18px; color: #614126; font-size: 1.15rem; font-weight: 700; }
+.login-field { margin: 0 0 17px; }
+.login-field label { display: flex; align-items: center; gap: 10px; margin: 0 0 8px 7px; color: #52351f; font: 700 .98rem "Fredoka", sans-serif; }
+.login-field label svg { color: #74451e; stroke-width: 2.8; }
+.login-field input { display: block; width: 100%; min-height: 60px; padding: 12px 19px; border: 2px solid #d9b98d; border-radius: 14px; background: #fff; box-shadow: inset 0 2px 4px #422b180d; color: #342a20; font: 600 1.02rem "Quicksand", sans-serif; transition: border-color 150ms ease, box-shadow 150ms ease; }
+.login-field input::placeholder { color: #96928c; }
+.login-field input:focus-visible { border-color: #55a947; outline: 3px solid #77bd6744; outline-offset: 1px; box-shadow: 0 0 0 1px #55a947; }
+.login-submit { display: flex; width: calc(100% + 18px); min-height: 77px; align-items: center; justify-content: center; gap: 14px; margin: 22px -9px 0; border: 3px solid #276c34; border-radius: 22px; background: linear-gradient(#60c43f, #35a52e); box-shadow: 0 6px 0 #246b2d, 0 10px 15px #34552e3d, inset 0 3px 0 #a4e277; color: #fff; cursor: pointer; font: 700 clamp(1.05rem, 1.6vw, 1.35rem) "Fredoka", sans-serif; text-shadow: 1px 2px 0 #2a7d32; transition: transform 130ms ease, box-shadow 130ms ease, filter 130ms ease; }
+.login-submit:hover { transform: translateY(-2px); filter: brightness(1.04); box-shadow: 0 8px 0 #246b2d, 0 13px 18px #34552e45, inset 0 3px 0 #a4e277; }
+.login-submit:active { transform: translateY(4px); box-shadow: 0 2px 0 #246b2d, inset 0 3px 0 #a4e277; }
+.login-submit:disabled { cursor: wait; filter: saturate(.75); }
+.login-submit svg { flex: 0 0 auto; }
+.login-register-prompt { margin: 21px 0 0; color: #5a412d; font-size: .98rem; font-weight: 700; text-align: center; }
+.login-register-prompt a { color: #0788d1; font-weight: 800; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.login-register-prompt a span { padding-left: 5px; font-size: 1.3em; }
+.login-error { margin: -4px 0 12px; padding: 10px 13px; border: 2px solid #d68e78; border-radius: 10px; background: #fff0e8; color: #8a2e20; font-weight: 700; }
+
+.register-page { overflow-y: auto; }
+.register-stage { position: relative; z-index: 2; display: flex; width: 100%; flex: 1 0 auto; align-items: center; justify-content: center; padding: 0 0 26px; }
+.register-card { width: min(100%, 590px); padding: 23px 36px 20px; }
+.register-card h1 { font-size: clamp(2.2rem, 3.4vw, 3rem); }
+.register-card .welcome-subtitle { max-width: 490px; margin-bottom: 15px; font-size: 1rem; line-height: 1.35; }
+.register-field { margin: 0 0 11px; }
+.register-field label { display: flex; align-items: center; gap: 9px; margin: 0 0 5px 5px; color: #52351f; font: 700 .88rem "Fredoka", sans-serif; }
+.register-field label svg { color: #74451e; stroke-width: 2.8; }
+.register-field > input, .register-password-wrap input { display: block; width: 100%; min-height: 48px; padding: 9px 14px; border: 2px solid #d9c6a9; border-radius: 11px; background: #fff; color: #342a20; font: 600 .9rem "Quicksand", sans-serif; transition: border-color 150ms ease, box-shadow 150ms ease; }
+.register-field input::placeholder { color: #a09a90; }
+.register-field input:focus-visible { border-color: #55a947; outline: 3px solid #77bd6744; outline-offset: 1px; box-shadow: 0 0 0 1px #55a947; }
+.register-password-wrap { position: relative; }
+.register-password-wrap input { padding-right: 48px; }
+.register-password-toggle { position: absolute; top: 50%; right: 8px; display: grid; width: 36px; height: 36px; place-items: center; transform: translateY(-50%); border: 0; border-radius: 8px; background: transparent; color: #765137; cursor: pointer; }
+.register-password-toggle:hover { background: #f3eadb; }
+.register-password-toggle:focus-visible { outline: 2px solid #4d9c45; }
+.register-hint { display: block; margin: 4px 0 0 5px; color: #78644e; font-size: .73rem; }
+.register-submit { width: 100%; min-height: 61px; margin: 13px 0 0; border-radius: 18px; font-size: 1.05rem; }
+.register-card .login-register-prompt { margin-top: 15px; font-size: .86rem; }
+
+@keyframes star-glimmer { 50% { scale: .78; rotate: 12deg; } }
+@keyframes vine-sway { to { rotate: 8deg; } }
+@keyframes parchment-appear { from { opacity: 0; translate: 0 20px; scale: .985; } to { opacity: 1; translate: 0 0; scale: 1; } }
+
+@media (max-width: 1050px) {
+  .paper-header { height: 165px; }
+  .paper-logo { font-size: clamp(3.2rem, 7.5vw, 5.6rem); }
+  .paper-nav { top: 16px; gap: 9px; }
+  .paper-nav-link { min-width: 154px; min-height: 53px; gap: 7px; padding: 9px 12px; font-size: .84rem; }
+  .login-stage { padding-bottom: 30px; }
+  .welcome-card { width: min(100%, 590px); }
+}
+
+@media (max-width: 700px) {
+  .paper-login-page { min-height: 100svh; overflow-y: auto; padding: 0 15px 22px; }
+  .paper-background-image { object-position: center; }
+  .paper-header { height: 164px; justify-content: flex-start; }
+  .paper-logo { margin-top: 14px; font-size: clamp(3rem, 12vw, 4.4rem); }
+  .logo-star { font-size: .3em; }
+  .star-one { right: -22px; }
+  .paper-nav { top: auto; right: 0; bottom: 11px; left: 0; justify-content: center; gap: 10px; }
+  .paper-nav-link { min-width: min(45vw, 190px); min-height: 45px; font-size: .76rem; }
+  .paper-nav-link svg { width: 17px; }
+  .login-stage { width: 100%; }
+  .login-masthead { margin-bottom: 11px; }
+  .wood-plaque { min-width: 0; width: min(100%, 480px); padding: 9px 19px; font-size: clamp(.95rem, 4vw, 1.3rem); }
+  .learning-motto { gap: 8px; margin-top: 9px; padding: 5px 10px; font-size: .72rem; }
+  .welcome-card { width: min(100%, 540px); padding: 25px clamp(19px, 6vw, 32px) 22px; border-width: 4px; border-radius: 30px; }
+  .welcome-card h1 { font-size: clamp(2.1rem, 8vw, 2.8rem); }
+  .welcome-subtitle { font-size: .97rem; }
+  .login-field input { min-height: 55px; }
+  .login-submit { width: 100%; min-height: 64px; margin: 18px 0 0; border-radius: 17px; font-size: 1rem; }
+  .login-register-prompt { margin-top: 18px; font-size: .86rem; }
+  .register-page { padding-bottom: 20px; }
+  .register-stage { padding-bottom: 8px; }
+  .register-card { width: min(100%, 540px); padding: 22px clamp(19px, 6vw, 30px) 20px; }
+  .register-card h1 { font-size: clamp(2rem, 8vw, 2.6rem); }
+  .register-field { margin-bottom: 10px; }
+  .register-field label { font-size: .82rem; }
+  .register-field > input, .register-password-wrap input { min-height: 46px; }
+  .register-submit { min-height: 56px; }
+}
+
+@media (max-width: 390px) {
+  .paper-header { height: 150px; }
+  .paper-logo { font-size: 2.85rem; }
+  .paper-nav-link { min-width: 44vw; gap: 5px; padding-inline: 8px; font-size: .69rem; }
+  .learning-motto { gap: 5px; font-size: .64rem; }
+  .welcome-card { padding-inline: 17px; }
+  .register-card { padding-inline: 16px; }
+  .login-field label { font-size: .88rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .paper-nav-link, .login-field input, .login-submit { transition: none; }
+  .logo-star, .welcome-card::before, .welcome-card::after, .welcome-card { animation: none !important; }
+}
