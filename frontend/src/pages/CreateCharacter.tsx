@@ -65,7 +65,7 @@ export default function CreateCharacter() {
       <div className="customizer-layout">
         <section className="mushroom-preview-panel" aria-label="Vista previa de tu personaje">
           <div className="mushroom-preview-frame">
-            <img src="/images/hero-mushroom-cutout.png" alt="Vista previa del personaje honguito" />
+            <img src="/images/hero-mushroom.png" alt="Vista previa del personaje honguito" />
           </div>
           <p className="preview-caption">Tu honguito aventurero</p>
         </section>
