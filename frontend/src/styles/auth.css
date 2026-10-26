@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
 
 * {
   box-sizing: border-box;
@@ -162,6 +163,87 @@ body {
   .auth-panel {
     padding: 25px 20px;
   }
+}
+
+/* Login arcade theme */
+#root:has(.auth-page:has(.auth-emblem)) {
+  width: 100%;
+  max-width: none;
+  border: 0;
+  text-align: initial;
+}
+
+.auth-page:has(.auth-emblem) {
+  --pixel-font: "Press Start 2P", monospace;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  flex: 1;
+  min-height: 100vh;
+  width: 100%;
+  justify-content: center;
+  padding: 92px 20px 94px;
+  background: linear-gradient(180deg, #5c94fc 0%, #79bafa 64%, #a2d9ff 100%);
+  color: #fff;
+}
+
+.auth-page:has(.auth-emblem)::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  background: repeating-linear-gradient(0deg, transparent 0 3px, #00000012 3px 4px);
+}
+
+.arcade-sky { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+.pixel-cloud { position: absolute; width: 112px; height: 30px; background: #fff; border: 4px solid #111; box-shadow: 28px -22px 0 -2px #fff, 28px -22px 0 2px #111, 56px 0 0 -2px #fff, 56px 0 0 2px #111; animation: cloud-drift 32s linear infinite; }
+.cloud-one { top: 16%; left: -150px; }
+.cloud-two { top: 29%; left: -220px; transform: scale(.72); animation-duration: 42s; animation-delay: -15s; }
+.pixel-hill { position: absolute; bottom: 66px; width: 250px; height: 155px; border: 5px solid #101010; border-radius: 100% 100% 0 0; background: #00a800; }
+.hill-one { left: 3%; }
+.hill-two { right: 2%; width: 330px; height: 205px; }
+.pixel-pipe { position: absolute; bottom: 64px; width: 74px; height: 115px; border: 5px solid #111; background: linear-gradient(90deg, #008b00 0 20%, #00c800 20% 72%, #008b00 72%); }
+.pixel-pipe::before { content: ""; position: absolute; left: -12px; top: -18px; width: 84px; height: 25px; border: 5px solid #111; background: #00bd00; }
+.pipe-one { left: 19%; }
+.pipe-two { right: 19%; height: 150px; }
+.arcade-status, .arcade-ground { position: absolute; z-index: 2; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; font: 10px/1.6 var(--pixel-font); }
+.arcade-status { top: 0; padding: 18px clamp(16px, 5vw, 64px); color: #fff; background: #0009; border-bottom: 4px solid #111; }
+.arcade-status b { color: #ffe548; font-weight: 400; }
+.status-credit { color: #ff8a70; }
+.arcade-ground { bottom: 0; min-height: 66px; padding: 12px clamp(16px, 5vw, 64px); border-top: 5px solid #111; background: repeating-linear-gradient(135deg, #d88000 0 16px, #c06800 16px 32px); color: #111; font-size: 8px; }
+.arcade-ground span { padding: 7px 9px; background: #ffffffd9; border: 2px solid #111; }
+.press-start { color: #bb250e; }
+.auth-page:has(.auth-emblem) .auth-panel { position: relative; z-index: 1; width: min(100%, 490px); padding: 34px 36px; border: 4px solid #111; border-radius: 0; background-color: #c84c0c; background-image: linear-gradient(335deg,#a83c04 23px,transparent 23px),linear-gradient(155deg,#a83c04 23px,transparent 23px),linear-gradient(335deg,#a83c04 23px,transparent 23px),linear-gradient(155deg,#a83c04 23px,transparent 23px); background-size: 32px 32px; background-position: 0 0,0 0,16px 16px,16px 16px; box-shadow: 9px 9px 0 #000; color: white; }
+.auth-page:has(.auth-emblem) .auth-emblem { color: #ffe548; filter: drop-shadow(3px 3px 0 #111); }
+.auth-page:has(.auth-emblem) .auth-panel h1, .auth-page:has(.auth-emblem) .auth-panel h2 { font-family: var(--pixel-font); text-shadow: 3px 3px 0 #111; }
+.auth-page:has(.auth-emblem) .auth-panel h1 { margin: 18px 0 12px; color: #ffe548; font-size: clamp(17px, 4vw, 22px); line-height: 1.8; }
+.auth-page:has(.auth-emblem) .auth-panel h2 { margin-bottom: 24px; color: #fff; font-size: 13px; line-height: 1.8; }
+.auth-page:has(.auth-emblem) .auth-subtitle { color: #fff2cb; font: 9px/1.8 var(--pixel-font); }
+.auth-page:has(.auth-emblem) .auth-divider { height: 3px; margin: 22px 0; background: repeating-linear-gradient(90deg, transparent 0 8px, #111 8px 12px); }
+.auth-page:has(.auth-emblem) .auth-panel form { padding: 16px; border: 3px solid #111; background: #111e; }
+.auth-page:has(.auth-emblem) .auth-panel label { margin: 12px 0 8px; color: #fff; font: 8px/1.8 var(--pixel-font); }
+.auth-page:has(.auth-emblem) .auth-panel input { padding: 13px 12px; border: 3px solid #fff; border-radius: 0; background: #080808; color: #fff; font: 11px/1.6 var(--pixel-font); }
+.auth-page:has(.auth-emblem) .auth-panel input::placeholder { color: #aaa; }
+.auth-page:has(.auth-emblem) .auth-panel input:focus { border-color: #ffe548; box-shadow: 0 0 0 2px #ffe54855; }
+.auth-page:has(.auth-emblem) .password-toggle { color: #ffe548; }
+.auth-page:has(.auth-emblem) .auth-submit { min-height: 54px; border: 4px solid #111; border-radius: 0; background: #00a800; box-shadow: 4px 4px 0 #000; color: #fff; font: 9px/1.6 var(--pixel-font); }
+.auth-page:has(.auth-emblem) .auth-submit:hover { background: #008800; filter: none; }
+.auth-page:has(.auth-emblem) .auth-submit:active { transform: translateY(3px); box-shadow: 1px 1px 0 #000; }
+.auth-page:has(.auth-emblem) .auth-footer { margin-top: 20px; color: #fff; font-size: 12px; line-height: 1.8; }
+.auth-page:has(.auth-emblem) .auth-footer a { color: #ffe548; }
+.auth-page:has(.auth-emblem) .auth-error { padding: 10px; border: 2px solid #ff8a70; background: #390d0d; color: #ffd1c8; }
+
+@keyframes cloud-drift { from { margin-left: 0; } to { margin-left: calc(100vw + 380px); } }
+
+@media (max-width: 520px) {
+  .auth-page:has(.auth-emblem) { padding: 82px 18px 90px; }
+  .auth-page:has(.auth-emblem) .auth-panel { padding: 27px 20px; }
+  .arcade-status { font-size: 8px; }
+  .arcade-ground { font-size: 6px; gap: 8px; }
+  .arcade-ground span { padding: 5px; }
+  .hill-one { left: -100px; }
+  .hill-two { right: -170px; }
 }
 
 /* Ajustes visuales del formulario de registro */

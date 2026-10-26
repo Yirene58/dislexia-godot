@@ -117,9 +117,13 @@ export default function Profile() {
                     className="profile-hero"
                     onClick={() => navigate(`/game/${character.id}`)}
                   >
-                    <strong>{character.name}</strong>
-                    <span>
-                      Nivel {character.level} · {character.experience} XP
+                    <span className="profile-character-art" aria-hidden="true">
+                      <img src="/images/hero-mushroom-cutout.png" alt="" />
+
+                    </span>
+                    <span className="profile-hero-info">
+                      <strong>{character.name}</strong>
+                      <span>Nivel {character.level} · {character.experience} XP</span>
                     </span>
                   </button>
                 ))}
