@@ -102,9 +102,14 @@ export default function Game() {
               </article>
             </div>
 
-            <p className="characters-description" style={{ marginTop: 36 }}>
-              Próximamente podrás iniciar tu aventura en Godot.
-            </p>
+            <button
+              style={{ marginTop: 36 }}
+              onClick={() => {
+                window.location.href = "/godot/index.html?character=" + character.id;
+              }}
+            >
+              Iniciar aventura en Godot
+            </button>
           </>
         )}
       </section>

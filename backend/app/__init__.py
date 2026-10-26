@@ -42,5 +42,8 @@ def create_app():
     from app.routes.game_routes import game_bp
     app.register_blueprint(game_bp)
 
+    from app.routes.ia_routes import ia_bp
+    app.register_blueprint(ia_bp)
+
     return app
 
