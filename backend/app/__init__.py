@@ -1,4 +1,4 @@
-﻿from flask import Flask, jsonify
+from flask import Flask, jsonify
 from flask_cors import CORS
 
 from app.config import Config
@@ -44,6 +44,9 @@ def create_app():
 
     from app.routes.ia_routes import ia_bp
     app.register_blueprint(ia_bp)
+
+    from app.routes.progreso_routes import progreso_bp
+    app.register_blueprint(progreso_bp)
 
     return app
 

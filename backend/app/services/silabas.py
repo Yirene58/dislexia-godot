@@ -156,26 +156,44 @@ def _variantes(silaba):
     return res
 
 
-def opciones_con_distractores(silabas, extra=2, rng=None):
-    """Devuelve las sílabas correctas + `extra` distractores, todo mezclado."""
+def opciones_con_distractores(silabas, extra=2, rng=None, dificultad=None):
+    """Devuelve las sílabas correctas + distractores, todo mezclado.
+
+    Si se pasa "dificultad" (RF4), manda sobre "extra":
+      1 -> 1 distractor muy distinto (fácil)
+      2 -> 2 distractores, uno parecido (b/d, inversión...)
+      3 -> 3 distractores, todos parecidos (difícil)
+    """
     import random as _random
     rng = rng or _random
     correctas = set(silabas)
-    candidatos = []
+    parecidos = []
     for s in silabas:
         for v in _variantes(s):
             mismas_vocales = sum(c in VOCALES for c in v) == sum(c in VOCALES for c in s)
-            if v not in correctas and v not in candidatos and v.isalpha() and mismas_vocales:
-                candidatos.append(v)
-    rng.shuffle(candidatos)
-    elegidos = candidatos[:extra]
-    relleno = ["ma", "pa", "la", "sa", "ta", "no", "mi", "lo"]
+            if v not in correctas and v not in parecidos and v.isalpha() and mismas_vocales:
+                parecidos.append(v)
+    rng.shuffle(parecidos)
+    relleno = ["ma", "pa", "la", "sa", "ta", "no", "mi", "lo", "fe", "ru", "ca", "ve"]
+    relleno = [r for r in relleno if r not in correctas and r not in parecidos]
     rng.shuffle(relleno)
-    for r in relleno:
-        if len(elegidos) >= extra:
+
+    if dificultad is None:
+        cuantos_parecidos, total = extra, extra
+    else:
+        dificultad = max(1, min(3, int(dificultad)))
+        total = dificultad
+        cuantos_parecidos = {1: 0, 2: 1, 3: 3}[dificultad]
+
+    elegidos = parecidos[:cuantos_parecidos]
+    for r in parecidos[cuantos_parecidos:] if dificultad is None else []:
+        if len(elegidos) >= total:
             break
-        if r not in correctas and r not in elegidos:
-            elegidos.append(r)
+        elegidos.append(r)
+    for r in relleno:
+        if len(elegidos) >= total:
+            break
+        elegidos.append(r)
     opciones = list(silabas) + elegidos
     rng.shuffle(opciones)
     return opciones

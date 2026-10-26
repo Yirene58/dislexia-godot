@@ -23,18 +23,33 @@ OLLAMA_URL = os.environ.get("OLLAMA_URL", "http://localhost:11434")
 OLLAMA_MODEL = os.environ.get("OLLAMA_MODEL", "qwen2.5:1.5b")
 TIEMPO_MAXIMO = int(os.environ.get("OLLAMA_TIMEOUT", "60"))
 
-# dificultad -> (mínimo de sílabas, máximo de sílabas)
+# Contenido de cada NIVEL del mundo (RF13). La DIFICULTAD (RF4) cambia las opciones.
+NIVELES = {
+    1: {"silabas": (2, 2), "requiere": None, "descripcion": "palabras de 2 sílabas"},
+    2: {"silabas": (3, 3), "requiere": None, "descripcion": "palabras de 3 sílabas"},
+    3: {"silabas": (2, 3), "requiere": {"grupo_consonantico", "diptongo", "silaba_trabada"},
+        "descripcion": "palabras con sílabas difíciles (bl, tr, ue, ie, sílabas que terminan en consonante)"},
+}
+# Compatibilidad con la versión anterior (dificultad = cantidad de sílabas)
 SILABAS_POR_DIFICULTAD = {1: (2, 2), 2: (3, 3), 3: (3, 4)}
 
 BANCO = [
     "gato", "casa", "mesa", "luna", "sapo", "pato", "dedo", "foca", "vaca", "rosa",
     "pelota", "camisa", "conejo", "manzana", "tomate", "zapato", "paloma", "ventana",
     "mariposa", "elefante", "chocolate", "bicicleta", "dinosaurio", "tortuga", "cocodrilo",
+    "tigre", "clavo", "plato", "globo", "fresa", "blusa", "libro", "cabra", "huevo", "nieve",
+    "piano", "rueda", "cielo", "jaula", "barco", "carta", "pulpo", "circo", "campo", "papel",
+    "trigo", "grillo", "suelo", "peine",
 ]
 
 
-def _palabras_validas(candidatas, dificultad, cantidad):
-    minimo, maximo = SILABAS_POR_DIFICULTAD[dificultad]
+def _palabras_validas(candidatas, dificultad, cantidad, nivel=None):
+    if nivel is not None:
+        minimo, maximo = NIVELES[nivel]["silabas"]
+        requiere = NIVELES[nivel]["requiere"]
+    else:
+        minimo, maximo = SILABAS_POR_DIFICULTAD[dificultad]
+        requiere = None
     vistas, resultado = set(), []
     for palabra in candidatas:
         if not isinstance(palabra, str):
@@ -43,6 +58,8 @@ def _palabras_validas(candidatas, dificultad, cantidad):
         if palabra in vistas or not palabra.isalpha() or len(palabra) > 14:
             continue
         silabas = silabear(palabra)
+        if requiere and not (requiere & dificultades(palabra)):
+            continue
         if minimo <= len(silabas) <= maximo:
             vistas.add(palabra)
             resultado.append({"palabra": palabra, "silabas": silabas})
@@ -51,16 +68,17 @@ def _palabras_validas(candidatas, dificultad, cantidad):
     return resultado
 
 
-def _pedir_a_ollama(tema, dificultad, cantidad):
-    minimo, maximo = SILABAS_POR_DIFICULTAD[dificultad]
+def _pedir_a_ollama(tema, dificultad, cantidad, nivel=None):
+    minimo, maximo = NIVELES[nivel]["silabas"] if nivel else SILABAS_POR_DIFICULTAD[dificultad]
+    extra = (" Deben ser " + NIVELES[nivel]["descripcion"] + ".") if nivel and NIVELES[nivel]["requiere"] else ""
     prompt = (
         "Eres un asistente para un juego educativo de lectura para niños de 6 a 8 años "
         "con dislexia. Escribe una lista de {n} palabras sencillas en español, "
         "sustantivos comunes y conocidos por niños, relacionados con el tema '{tema}', "
-        "que tengan entre {mi} y {ma} sílabas. Sin nombres propios, sin palabras "
+        "que tengan entre {mi} y {ma} sílabas.{ex} Sin nombres propios, sin palabras "
         "ofensivas ni de miedo. Responde SOLO con JSON con esta forma: "
         '{{"palabras": ["palabra1", "palabra2"]}}'
-    ).format(n=cantidad * 3, tema=tema, mi=minimo, ma=maximo)
+    ).format(n=cantidad * 3, tema=tema, mi=minimo, ma=maximo, ex=extra)
 
     cuerpo = json.dumps({
         "model": OLLAMA_MODEL,
@@ -84,22 +102,33 @@ def _pedir_a_ollama(tema, dificultad, cantidad):
 @ia_bp.route("/silabas", methods=["POST"])
 @jwt_required()
 def generar_silabas():
+    """Palabras para una ronda.
+
+    Cuerpo nuevo (RF13 + RF4): {"tema": "animales", "nivel": 1, "cantidad": 5,
+                               "character_id": 2, "world_id": "mundo_1"}
+      - nivel: qué tipo de palabras (1 = 2 sílabas, 2 = 3 sílabas, 3 = sílabas difíciles)
+      - la dificultad (cuántas y qué tan parecidas son las trampas) se toma de la
+        tabla de dificultad del personaje; también se puede enviar "dificultad".
+    Cuerpo anterior: {"tema", "dificultad", "cantidad"} sigue funcionando.
+    """
     datos = request.get_json(silent=True) or {}
     tema = str(datos.get("tema", "animales")).strip()[:40] or "animales"
 
     try:
+        cantidad = min(max(int(datos.get("cantidad", 5)), 1), 10)
+        nivel = int(datos["nivel"]) if datos.get("nivel") is not None else None
         dificultad = int(datos.get("dificultad", 1))
-        cantidad = int(datos.get("cantidad", 5))
     except (TypeError, ValueError):
-        return jsonify({"message": "dificultad y cantidad deben ser números"}), 400
-
+        return jsonify({"message": "nivel, dificultad y cantidad deben ser números"}), 400
     dificultad = min(max(dificultad, 1), 3)
-    cantidad = min(max(cantidad, 1), 10)
+    if nivel is not None:
+        nivel = min(max(nivel, 1), 3)
+        dificultad = _dificultad_del_personaje(datos, dificultad)
 
     palabras, fuente = [], "ia"
     try:
         palabras = _palabras_validas(
-            _pedir_a_ollama(tema, dificultad, cantidad), dificultad, cantidad)
+            _pedir_a_ollama(tema, dificultad, cantidad, nivel), dificultad, cantidad, nivel)
     except Exception:
         palabras = []
 
@@ -108,15 +137,37 @@ def generar_silabas():
         ya = {p["palabra"] for p in palabras}
         extra = [p for p in BANCO if p not in ya]
         random.shuffle(extra)
-        palabras += _palabras_validas(extra, dificultad, cantidad - len(palabras))
+        palabras += _palabras_validas(extra, dificultad, cantidad - len(palabras), nivel)
 
     for p in palabras:
-        p["opciones"] = opciones_con_distractores(p["silabas"])
+        if nivel is not None:
+            p["opciones"] = opciones_con_distractores(p["silabas"], dificultad=dificultad)
+        else:
+            p["opciones"] = opciones_con_distractores(p["silabas"])
 
     return jsonify({
         "message": "Palabras generadas",
-        "data": {"palabras": palabras, "fuente": fuente, "dificultad": dificultad},
+        "data": {"palabras": palabras, "fuente": fuente, "dificultad": dificultad,
+                 "nivel": nivel},
     }), 200
+
+
+def _dificultad_del_personaje(datos, por_defecto):
+    """RF13: la ronda respeta la dificultad calculada por el módulo adaptativo (RF4)."""
+    from flask_jwt_extended import get_jwt_identity
+    from app.extensions import db
+    from app.models.character import Character
+    from app.routes.progreso_routes import MUNDOS, dificultad_actual
+    try:
+        character_id = int(datos.get("character_id", 0))
+        user_id = int(get_jwt_identity())
+    except (TypeError, ValueError):
+        return por_defecto
+    world_id = datos.get("world_id", "mundo_1")
+    if character_id <= 0 or world_id not in MUNDOS:
+        return por_defecto
+    propio = db.session.query(Character).filter_by(id=character_id, user_id=user_id).first()
+    return dificultad_actual(character_id, world_id) if propio else por_defecto
 
 
 @ia_bp.route("/estado", methods=["GET"])
@@ -291,8 +342,9 @@ def refuerzo_silabas():
             if len(palabras) == cantidad:
                 break
 
+    dif_refuerzo = _dificultad_del_personaje(datos, None) if datos.get("character_id") else None
     for p in palabras:
-        p["opciones"] = opciones_con_distractores(p["silabas"])
+        p["opciones"] = opciones_con_distractores(p["silabas"], dificultad=dif_refuerzo)
 
     return jsonify({
         "message": "Palabras de refuerzo generadas",
