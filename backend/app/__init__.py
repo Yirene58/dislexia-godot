@@ -48,5 +48,8 @@ def create_app():
     from app.routes.progreso_routes import progreso_bp
     app.register_blueprint(progreso_bp)
 
+    from app.routes.voz_routes import voz_bp
+    app.register_blueprint(voz_bp)
+
     return app
 
