@@ -1,6 +1,5 @@
 ﻿import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, UserRound, Swords, Star, Mail } from "lucide-react";
 
 import { useAuth } from "../context/AuthContext";
 import { characterService } from "../services/character.service";
@@ -53,85 +52,52 @@ export default function Profile() {
   );
 
   return (
-    <main className="characters-page">
-      <header className="characters-header">
-        <h1>DISLEXIA GODOT</h1>
+    <main className="profile-page">
+      <div className="profile-scene">
+        <header className="profile-scene-header">
+          <h1>DISLEXIA GODOT</h1>
+          <button onClick={() => navigate("/characters")}>
+            Mis personajes
+          </button>
+        </header>
 
-        <button onClick={() => navigate("/characters")}>
-          <ArrowLeft size={18} />
-          Mis personajes
-        </button>
-      </header>
-
-      <section className="profile-container">
-        <div className="profile-heading">
-          <UserRound size={52} />
-          <div>
-            <h2>Mi perfil de aventurero</h2>
-            <p>Consulta tus datos y el progreso de tus héroes.</p>
-          </div>
-        </div>
-
-        <div className="profile-user">
-          <h3>{user?.username ?? "Jugador"}</h3>
-          <p>
-            <Mail size={17} />
-            {user?.email ?? "Correo no disponible"}
+        <section className="profile-container" aria-label="Perfil de aventurero">
+          <h2 className="profile-title">Mi perfil de aventurero</h2>
+          <p className="profile-subtitle">
+            Consulta tus datos y el progreso de tus héroes.
           </p>
-        </div>
 
-        {loading && <p>Cargando estadísticas...</p>}
-        {error && <p role="alert">{error}</p>}
+          <div className="profile-avatar">
+            <img src="/images/hero-mushroom-cutout.png" alt="Hongo aventurero" />
+          </div>
 
-        {!loading && !error && (
-          <>
+          <div className="profile-user">
+            <h3>{user?.username ?? "Jugador"}</h3>
+            <p>{user?.email ?? "Correo no disponible"}</p>
+          </div>
+
+          {loading && <p className="profile-feedback">Cargando progreso...</p>}
+          {error && <p className="profile-feedback" role="alert">{error}</p>}
+
+          {!loading && !error && (
             <div className="profile-stats">
               <article className="profile-stat">
-                <Swords size={30} />
                 <strong>{characters.length}</strong>
                 <span>Héroes creados</span>
               </article>
-
               <article className="profile-stat">
-                <Star size={30} />
                 <strong>{highestLevel}</strong>
                 <span>Nivel más alto</span>
               </article>
-
               <article className="profile-stat">
-                <Star size={30} />
                 <strong>{totalExperience}</strong>
                 <span>Experiencia total</span>
               </article>
             </div>
+          )}
 
-            <h3>Mis héroes</h3>
-
-            {characters.length === 0 ? (
-              <p>Todavía no tienes héroes creados.</p>
-            ) : (
-              <div className="profile-heroes">
-                {characters.map((character) => (
-                  <button
-                    key={character.id}
-                    className="profile-hero"
-                    onClick={() => navigate(`/game/${character.id}`)}
-                  >
-                    <span className="profile-character-art" aria-hidden="true">
-                      <img src="/images/hero-mushroom-cutout.png" alt="" />
-
-                    </span>
-                    <span className="profile-hero-info">
-                      <strong>{character.name}</strong>
-                      <span>Nivel {character.level} · {character.experience} XP</span>
-                    </span>
-                  </button>
-                ))}
-              </div>
-            )}
-          </>
-        )}
-      </section>
+        </section>
+      </div>
     </main>
   );
 }
